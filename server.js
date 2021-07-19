@@ -4,6 +4,7 @@ import mongoose from 'mongoose'
 import cors from 'cors'
 import morgan from 'morgan'
 import dotenv from 'dotenv'
+import path from 'path'
 
 //initialize express
 const app = express()
@@ -29,7 +30,21 @@ mongoose.connect(process.env.MONGO_URL, {
 
 //initalize routes
 
-//basic hello
+//Heroku Deployment
+if(process.env.NODE_ENV === "production"){
+    app.use(express.static("client/build"))
+    app.get("*", (req, res)=>{
+        const __dirname = path.dirname(new URL(import.meta.url).pathname)
+        res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
+    })
+}else{
+    app.get('/', (req, res)=>{
+        res.send("Hello Hydrogen. API is running...")
+    })
+}
+
+
+
 app.get('/', (req, res)=>{
     res.send("Hello Hydrogen. API is running...")
 })
