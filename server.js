@@ -43,11 +43,5 @@ if(process.env.NODE_ENV === "production"){
     })
 }
 
-
-
-app.get('/', (req, res)=>{
-    res.send("Hello Hydrogen. API is running...")
-})
-
 //app listening
 app.listen(SERVER_PORT, ()=>{console.log(`Server running at ${SERVER_PORT}`)})
