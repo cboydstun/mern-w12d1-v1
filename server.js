@@ -27,8 +27,14 @@ mongoose.connect(process.env.MONGO_URL, {
 }).then(console.log("Connnected to MongoDB successfully!")).catch((err)=>{console.log(err)})
 
 //import routes
+import userRouter from './routes/users.js'
+import authRouter from './routes/auth.js'
+import todoRouter from './routes/todos.js'
 
 //initalize routes
+app.use("/api/users", userRouter)
+app.use('/api/auth', authRouter)
+app.use('/api/todos', todoRouter)
 
 //Heroku Deployment
 if(process.env.NODE_ENV === "production"){
